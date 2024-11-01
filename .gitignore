@@ -1,0 +1,16 @@
+venv
+.idea
+.env
+__pycache__/
+*.pyc
+.DS_Store
+env
+brew
+.coverage
+.coverage.*
+test-reports/
+.venv*
+.vscode
+.mypy_cache
+.ruff_cache
+.pytest_cache

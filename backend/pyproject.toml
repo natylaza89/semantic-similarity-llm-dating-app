@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "dating-app-backend"
+version = "0.1.0"
+description = "Dating App Semantic Similarity LLM Matcher"
+authors = ["Naty Laza"]
+packages = [
+    { include = "app" },
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+uvicorn = "^0.23.2"
+pydantic = "^2.3.0"
+fastapi = {extras = ["standard"], version = "^0.115.2"}
+pydantic-settings = "^2.5.2"
+python-dotenv = "^1.0.1"
+numpy = ">=1.0.0,<2.0.0"  # Changed to be compatible with langchain
+cohere = "^5.11.1"
+langchain = "^0.3.6"
+langchain-google-genai = "^2.0.3"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "~8.2.0"
+ruff = "~0.5.6"
+mypy = "~1.11.1"
+
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = [
+    "ignore::pydantic.warnings.PydanticDeprecatedSince20",
+]
+
+[[tool.mypy.overrides]]
+module = "google.generativeai.types"
+ignore_missing_imports = true
