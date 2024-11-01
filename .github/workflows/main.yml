@@ -1,0 +1,72 @@
+name: Dating App CI
+
+on:
+  push:
+    paths:
+      - "backend/app/**"
+      - "backend/tests/**"
+  pull_request:
+    paths:
+      - "backend/app/**"
+      - "backend/tests/**"
+# TODO: make a reusbale step for setup
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+      - name: Install dependencies
+        run: |
+          cd backend
+          poetry env use 3.12
+          poetry install
+      - name: Run Ruff
+        run: |
+          cd backend
+          poetry run ruff check app tests
+
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+      - name: Install dependencies
+        run: |
+          cd backend
+          poetry env use 3.12
+          poetry install
+      - name: Run Mypy
+        run: |
+          cd backend
+          poetry run mypy app tests
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+      - name: Install dependencies
+        run: |
+          cd backend
+          poetry env use 3.12
+          poetry install
+      - name: Run Pytest
+        run: |
+          cd backend
+          poetry run pytest tests
